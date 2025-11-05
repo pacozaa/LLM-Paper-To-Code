@@ -19,7 +19,74 @@ messages:
             ````
   - role: user
     content: |-
+      There are 2 houses, numbered 1 to 2 from left to right.
+
+            Each house is occupied by a different person.
+
+            Each house has a unique attribute for each of the following
+            characteristics:
+
+            - Each person has a unique name: **Arnold, Eric**
+
+            - People own unique car models: **ford f150, tesla model 3**
+
+            - The people keep unique animals: **cat, horse**
+
+
+            **Clues**:
+
+            1. Eric is directly left of the person who owns a Tesla Model 3.
+
+            2. The person who keeps horses is in the first house.
+  - role: assistant
+    content: |-
+      ## Reasoning steps:
+
+
+            From Clue 1, we know that Eric is to the left of someone, so he must be
+            the owner of House 1 because House 2 is the rightmost house.
+
+            Additionally, we know that the person in House 2 must be Arnold, and he
+            owns a Tesla Model 3. Thus, Eric owns a Ford F150.
+
+            From Clue 2, we know that Eric keeps horses in House 1, which means the
+            other house must keep cats. Finally, we arrive at the unique solution to
+            this puzzle.
+
+            The solution is presented in table format:
+
+
+            ## Final answer:
+
+
+            ```json
+
+            {
+               "header":[
+                  "Houses",
+                  "Name",
+                  "CarModel",
+                  "Animal"
+               ],
+               "rows":[
+                  [
+                     "1",
+                     "Eric",
+                     "ford f150",
+                     "horse"
+                  ],
+                  [
+                     "2",
+                     "Arnold",
+                     "tesla model 3",
+                     "cat"
+                  ]
+               ]
+            }
+  - role: user
+    content: |-
       Question:
+
             There are 3 houses, numbered 1 to 3 from left to right, as seen from
             across the street. Each house is occupied by a different person. Each
             house has a unique attribute for each of the following characteristics:
@@ -42,144 +109,19 @@ messages:
             4. The person's child is named Bella is in the first house.
 
             5. The person who loves white is the person's child is named Meredith.
-  - role: assistant
-    content: >-
-      ## Reasoning steps:
 
 
-      Let's go through the clues systematically.
+            ## Headers
 
+            "header": [
 
-      ### Step 1: Initial information
+            "House",
 
+            "Name",
 
-      * 3 houses: House 1, House 2, House 3 (from left to right).
+            "Color",
 
-      * Names: Peter, Eric, Arnold.
+            "Children"
 
-      * Colors: red, white, yellow.
-
-      * Children: Fred, Meredith, Bella.
-
-
-      ### Step 2: Apply clue 3
-
-
-      3. The person's favorite color is red is in the second house.
-
-
-      So:  
-
-      House 2 - Color: red
-
-
-      ### Step 3: Apply clue 1
-
-
-      1. Arnold is the person whose favorite color is red.
-
-
-      So:  
-
-      House 2 - Name: Arnold  
-
-      House 2 - Color: red  
-
-
-      ### Step 4: Apply clue 4
-
-
-      4. The person's child is named Bella is in the first house.
-
-
-      So:  
-
-      House 1 - Children: Bella
-
-
-      ### Step 5: Apply clue 5
-
-
-      5. The person who loves white is the person's child is named Meredith.
-
-
-      That means:  
-
-      Whoever has white as their favorite color, his child is Meredith.
-
-
-      So: If a house has Color: white, its Children: Meredith.
-
-
-      Now we know:
-
-      - House 1: Children: Bella (so can't be Meredith)
-
-      - House 2: Color: red (so can't be white)
-
-      Therefore, House 3 must be Color: white and Children: Meredith.
-
-
-      So:  
-
-      House 3 - Color: white  
-
-      House 3 - Children: Meredith
-
-
-      ### Step 6: Determine remaining assignments
-
-
-      Now, assign all possible attributes:
-
-
-      - Colors used: red (House 2), white (House 3), so House 1 must be yellow.
-        - House 1 - Color: yellow
-
-      - Children: Bella (House 1), Meredith (House 3), so House 2 must be Fred.
-        - House 2 - Children: Fred
-
-      - Names: Arnold (House 2), Peter/Eric remaining.
-
-
-      ### Step 7: Apply clue 2
-
-
-      2. The person's child named Fred is somewhere to the left of Eric.
-
-
-      House 2 - Children: Fred  
-
-
-      For Fred to be left of Eric, Eric must be in House 3. (As House 2 is
-      already Fred, and must be left of Eric.)
-
-
-      - House 3 - Name: Eric
-
-
-      Now, House 1 is the only one left for Peter.
-
-
-      ### Step 8: Fill in the grids
-
-
-      - House 1: Name: Peter, Color: yellow, Children: Bella
-
-      - House 2: Name: Arnold, Color: red, Children: Fred
-
-      - House 3: Name: Eric, Color: white, Children: Meredith
-
-
-      ## Final answer:
-
-      ```json
-
-      [
-        {"House": "1", "Name": "Peter",  "Color": "yellow", "Children": "Bella"},
-        {"House": "2", "Name": "Arnold", "Color": "red",    "Children": "Fred"},
-        {"House": "3", "Name": "Eric",   "Color": "white",  "Children": "Meredith"}
-      ]
-
-      ```
+            ]
 model: openai/gpt-4.1
